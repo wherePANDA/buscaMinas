@@ -19,23 +19,40 @@ public class Juego {
     private int numColumnas;
 
     public Juego() {
-    }
-    public void configurarJuego(){
-        System.out.println("Introduce numFilas, Columnas y Minas");
-        Scanner leer = new Scanner(System.in);
-        
+        configurarJuego();
     }
     
+    public void configurarJuego(){
+        Scanner leer;
+        int numColumnas=0,numFilas=0,numMinas=0;
+        do{
+            try{
+                leer = new Scanner(System.in);
+                System.out.println("Introduce el número de Filas");
+                numFilas = leer.nextInt();
+                System.out.println("Introduce el número de Columnas");
+                numColumnas = leer.nextInt();
+                System.out.println("Introduce el número de Minas");
+                numMinas = leer.nextInt();
+            } catch(java.util.InputMismatchException letraIntroducida){
+                System.out.println("--=[Has introducido una letra]=--");
+            } catch(Exception ex){
+                System.out.println("Error general");
+            }
+        }while(numColumnas==0 || numFilas==0);
+        this.numColumnas = numColumnas;
+        this.numFilas = numFilas;
+        this.numMinas = numMinas;
+        this.tablero = new Tablero(numFilas, numColumnas);
+        mostrarTablero();
+    }
     public void jugar(){
         
     }
     
     private void mostrarTablero(){
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                
-            }
-        }
+        tablero.insertarMinas(numMinas);
+        tablero.imprimirPrueba();
     }
     
     private int elegirOperacion(){

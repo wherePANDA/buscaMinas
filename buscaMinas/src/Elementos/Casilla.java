@@ -24,7 +24,13 @@ public class Casilla {
         this.visible = false;
         this.numero = 0;
     }
-
+    /**
+     * Muestra el contenido de las casillas;
+     * Si no es visible muestra un punto (. )
+     * Si es bandera devuelve (x )
+     * Si es 
+     * @return 
+     */
     @Override
     public String toString() {
         /*String omitirCero="";
@@ -33,18 +39,27 @@ public class Casilla {
         }else{
             omitirCero=String.valueOf(getNumero());
         }*/
+        
+        
         if (bandera){
             return "X ";
         }
         
-        if (mina){
-            return "\u001B[31mM \u001B[0m";
+        if (visible){
+        
+            if (mina){
+                return "\u001B[31mM \u001B[0m";
+            }
+
+            if (numero>0)
+                return Integer.toString(numero)+" ";
+
+            if(blanco){
+                return "  ";
+            }
         }
         
-        if (numero>0)
-            return Integer.toString(numero)+" ";
-        
-        return "- ";
+        return ". ";
     }
 
     /**

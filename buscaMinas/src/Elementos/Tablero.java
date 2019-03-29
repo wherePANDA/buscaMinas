@@ -41,8 +41,8 @@ public class Tablero {
         int numAleatorio1;
         int numALeatorio2;
         while(minas>0){
-            numAleatorio1 = r.nextInt(6);
-            numALeatorio2 = r.nextInt(6);
+            numAleatorio1 = r.nextInt(this.numFilas);
+            numALeatorio2 = r.nextInt(this.numColumnas);
             tabla[numAleatorio1][numALeatorio2].setMina(true);
             minas--;
         }
@@ -62,7 +62,6 @@ public class Tablero {
             System.out.print("\u001B[31m"+contador+"|"+"\u001B[0m");
             for (int j = 0; j < tabla[i].length; j++) {
                 System.out.print(tabla[i][j]);
-                
             }
             System.out.print("\u001B[31m|"+contador+"\u001B[0m");
             contador++;
@@ -74,17 +73,6 @@ public class Tablero {
         }
         System.out.print("\u001B[31m|0 ");
         System.out.println("");
-    }
-    /**
-     * Método que devuelve una casilla de la matriz tabla
-     * @author Catalin Ciurcanu
-     * @version 1
-     * @param fila fila de la matriz
-     * @param columna columna de la matriz
-     * @return devuelve la casilla de tabla
-     */
-    public Casilla getCasilla(int fila, int columna){
-        return this.tabla[fila][columna];
     }
     
     /**
@@ -107,6 +95,18 @@ public class Tablero {
         }
         
         return num;
+    }
+    
+    /**
+     * Método que devuelve una casilla de la matriz tabla
+     * @author Catalin Ciurcanu
+     * @version 1
+     * @param fila fila de la matriz
+     * @param columna columna de la matriz
+     * @return devuelve la casilla de tabla
+     */
+    public Casilla getCasilla(int fila, int columna){
+        return this.tabla[fila][columna];
     }
     
     /**
