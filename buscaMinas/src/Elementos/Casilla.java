@@ -16,20 +16,35 @@ public class Casilla {
     private boolean visible;
     private int numero;
 
-    public Casilla() {
-    }
     
-    public Casilla(int numero){
+    public Casilla(){
         this.mina = false;
         this.blanco = false;
         this.bandera = false;
         this.visible = false;
-        this.numero = numero;
+        this.numero = 0;
     }
 
     @Override
     public String toString() {
-        return "" + getNumero();
+        /*String omitirCero="";
+        if(getNumero()==0){
+            omitirCero="-";
+        }else{
+            omitirCero=String.valueOf(getNumero());
+        }*/
+        if (bandera){
+            return "X ";
+        }
+        
+        if (mina){
+            return "\u001B[31mM \u001B[0m";
+        }
+        
+        if (numero>0)
+            return Integer.toString(numero)+" ";
+        
+        return "- ";
     }
 
     /**

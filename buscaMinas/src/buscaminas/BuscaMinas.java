@@ -18,8 +18,9 @@ public class BuscaMinas {
      */
     public static void main(String[] args) {
         Juego juego = null;
-        Tablero tablero = new Tablero(6, 6);
-        tablero.insertarMinas(5);
+        Tablero tablero = new Tablero(9, 9);
+        tablero.insertarMinas(3);
+        tablero.calcularTablero();
         tablero.imprimirPrueba();
     }
     

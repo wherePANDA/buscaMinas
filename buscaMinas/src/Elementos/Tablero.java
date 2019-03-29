@@ -16,41 +16,109 @@ public class Tablero {
     private int numColumnas;
     private int numMinas;
     private Casilla[][] tabla;
-
+    /**
+     * 
+     * @param numFilas
+     * @param numColumnas 
+     */
     public Tablero(int numFilas, int numColumnas) {
         this.numFilas = numFilas;
         this.numColumnas = numColumnas;
         this.numMinas = 0;
         this.tabla = new Casilla[numFilas][numColumnas];
-    }
-
-    public void insertarMinas(int minas){
-        Random r = new Random();
         for (int i = 0; i < tabla.length; i++) {
             for (int j = 0; j < tabla[i].length; j++) {
-                int aleatorio = r.nextInt();
                 tabla[i][j] = new Casilla();
             }
         }
     }
-    
+    /**
+     * 
+     * @param minas 
+     */
+    public void insertarMinas(int minas){
+        Random r = new Random();
+        int numAleatorio1;
+        int numALeatorio2;
+        while(minas>0){
+            numAleatorio1 = r.nextInt(6);
+            numALeatorio2 = r.nextInt(6);
+            tabla[numAleatorio1][numALeatorio2].setMina(true);
+            minas--;
+        }
+    }
+    /**
+     * 
+     */
     public void imprimirPrueba(){
-        System.out.println("\u001B[31m0|1 2 3 4 5 6 |0 ");
+        System.out.print("\u001B[31m0|");
+        for (int i = 1; i <= tabla.length; i++) {
+            System.out.print("\u001B[31m"+i+" \u001B[0m");
+        }
+        System.out.print("\u001B[31m|0 ");
+        System.out.println("");
         int contador=1;
         for (int i = 0; i < tabla.length; i++) {
             System.out.print("\u001B[31m"+contador+"|"+"\u001B[0m");
             for (int j = 0; j < tabla[i].length; j++) {
-                if(tabla[i][j].isMina()){
-                    System.out.print("x ");
-                }else{
-                    System.out.print(tabla[i][j].toString()+" ");
-                }
+                System.out.print(tabla[i][j]);
                 
             }
             System.out.print("\u001B[31m|"+contador+"\u001B[0m");
             contador++;
             System.out.println("");
         }
-        System.out.println("\u001B[31m0|0 1 2 3 4 5 |6");
+        System.out.print("\u001B[31m0|");
+        for (int i = 1; i <= tabla.length; i++) {
+            System.out.print("\u001B[31m"+i+" \u001B[0m");
+        }
+        System.out.print("\u001B[31m|0 ");
+        System.out.println("");
+    }
+    /**
+     * Método que devuelve una casilla de la matriz tabla
+     * @author Catalin Ciurcanu
+     * @version 1
+     * @param fila fila de la matriz
+     * @param columna columna de la matriz
+     * @return devuelve la casilla de tabla
+     */
+    public Casilla getCasilla(int fila, int columna){
+        return this.tabla[fila][columna];
+    }
+    
+    /**
+     * Método que calcula el numero de minas que hay alrededor
+     * @param fila
+     * @param columna
+     * @return 
+     */
+    public int calcularMinasCasilla(int fila, int columna){
+        int num=0;
+        for (int i = fila-1; i <= fila+1; i++) {
+            if(i>=0 && i<numFilas){
+                for (int j = columna-1; j <= columna+1; j++) {
+                    if(j>=0 && j<numColumnas && tabla[i][j].isMina()){
+                        num++;
+                    }
+                }
+            }
+            
+        }
+        
+        return num;
+    }
+    
+    /**
+     * 
+     */
+    public void calcularTablero(){
+        for (int i = 0; i < numFilas; i++) {
+            for (int j = 0; j < numColumnas; j++) {
+                if(!tabla[i][j].isMina()){
+                    tabla[i][j].setNumero(calcularMinasCasilla(i, j));
+                }
+            }
+        }
     }
 }
