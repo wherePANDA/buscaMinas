@@ -44,10 +44,22 @@ public class Juego {
         this.numFilas = numFilas;
         this.numMinas = numMinas;
         this.tablero = new Tablero(numFilas, numColumnas);
-        mostrarTablero();
     }
+    
     public void jugar(){
-        
+        Scanner leer=new Scanner(System.in);
+        do{
+            mostrarTablero();
+            int opc=elegirOperacion();
+            switch(opc){
+                case 1: System.out.println("1");
+                    break;
+                case 2: System.out.println("2");
+                    break;
+                case 3: System.out.println("3");
+                    break;
+            }
+        }while(!partidaGanada());
     }
     
     private void mostrarTablero(){
@@ -57,9 +69,44 @@ public class Juego {
     
     private int elegirOperacion(){
         int opc=0;
-        
-        
+        Scanner leer=new Scanner(System.in);
+        System.out.println("Elige una opcion:");
+        System.out.println("1. Descubrir");
+        System.out.println("2. Poner Bandera");
+        System.out.println("3. Quitar Bandera");
+        opc = leer.nextInt();
         return opc;
+    }
+    
+    private boolean coordenadasCorrectas(int fila, int columna){
+        Scanner leer = new Scanner(System.in);
+        boolean filas=false, columnas = false, estado=false;
+        try{
+            do{
+                while(fila>this.numFilas){
+                    System.out.print("Error Filas: ");
+                    fila = leer.nextInt();
+                    if(fila<this.numFilas){
+                        filas = true;
+                    }
+                }
+                while(columna>this.numColumnas){
+                    System.out.print("Error columnas: ");
+                    columna = leer.nextInt();
+                    if(columna<this.numColumnas){
+                        columnas = true;
+                    }
+                }
+                if(filas && columnas){
+                    estado=true;
+                }
+            }while(filas==false || columnas==false);
+        } catch(java.util.InputMismatchException letraIntroducida){
+            System.out.println("--=[Has introducido una letra]=--");
+        } catch(Exception ex){
+            System.out.println("Error general");
+        }
+        return estado;
     }
     
     private void acabarJuegoMina(){
@@ -75,6 +122,7 @@ public class Juego {
     }
     
     private boolean partidaGanada(){
+        boolean victoria;
         return false;
     }
 }

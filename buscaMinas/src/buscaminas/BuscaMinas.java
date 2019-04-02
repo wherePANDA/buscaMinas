@@ -18,5 +18,9 @@ public class BuscaMinas {
      */
     public static void main(String[] args) {
         Juego juego = new Juego();
+        if(juego!=null){
+           juego.jugar();
+        }
+        
     }
 }
