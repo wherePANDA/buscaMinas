@@ -52,12 +52,12 @@ public class Tablero {
      */
     public void imprimirPrueba(){
         System.out.print("\u001B[31m0|");
-        for (int i = 1; i <= tabla.length; i++) {
+        for (int i = 0; i <= tabla.length-1; i++) {
             System.out.print("\u001B[31m"+i+" \u001B[0m");
         }
         System.out.print("\u001B[31m|0 ");
         System.out.println("");
-        int contador=1;
+        int contador=0;
         for (int i = 0; i < tabla.length; i++) {
             System.out.print("\u001B[31m"+contador+"|"+"\u001B[0m");
             for (int j = 0; j < tabla[i].length; j++) {
@@ -68,7 +68,7 @@ public class Tablero {
             System.out.println("");
         }
         System.out.print("\u001B[31m0|");
-        for (int i = 1; i <= tabla.length; i++) {
+        for (int i = 0; i <= tabla.length-1; i++) {
             System.out.print("\u001B[31m"+i+" \u001B[0m");
         }
         System.out.print("\u001B[31m|0 ");
@@ -93,7 +93,6 @@ public class Tablero {
             }
             
         }
-        
         return num;
     }
     

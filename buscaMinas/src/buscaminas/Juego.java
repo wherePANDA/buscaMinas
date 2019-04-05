@@ -49,14 +49,34 @@ public class Juego {
     public void jugar(){
         Scanner leer=new Scanner(System.in);
         do{
+            tablero.insertarMinas(numMinas);
             mostrarTablero();
             int opc=elegirOperacion();
             switch(opc){
-                case 1: System.out.println("1");
+                case 1: 
+                    int fil,column;
+                    System.out.println("Introduce las coordenadas");
+                    System.out.print("Fila: ");
+                    fil = leer.nextInt();
+                    System.out.print("Columna: ");
+                    column = leer.nextInt();
+                    
+                    tablero.getCasilla(fil, column).setBlanco(true);
+                    tablero.calcularMinasCasilla(fil, column);
+                    tablero.calcularTablero();
+                    tablero.getCasilla(fil, column).setVisible(true);
+                    
+
                     break;
-                case 2: System.out.println("2");
+                case 2: 
+                    System.out.println("Introduce las coordenadas");
+                    System.out.print("Fila: ");
+                    fil = leer.nextInt();
+                    System.out.print("Columna: ");
+                    column = leer.nextInt();
+                    tablero.getCasilla(fil, column).setBandera(true);
                     break;
-                case 3: System.out.println("3");
+                case 3: 
                     break;
             }
         }while(!partidaGanada());
@@ -114,6 +134,7 @@ public class Juego {
     }
     
     private boolean descubrirCasilla(int fila, int columna){
+        tablero.getCasilla(fila, columna);
         return true;
     }
     
