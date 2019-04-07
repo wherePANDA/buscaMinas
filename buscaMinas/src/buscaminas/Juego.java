@@ -17,11 +17,19 @@ public class Juego {
     private int numMinas;
     private int numFilas;
     private int numColumnas;
-
+    /**
+     * Constructor en el que se configura el juego
+     * @author Catalin Ciurcanu
+     * @version 1
+     */
     public Juego() {
         configurarJuego();
     }
-    
+    /**
+     * Metodo en el que se configura el juego
+     * @author Catalin Ciurcanu
+     * @version 1
+     */
     public void configurarJuego(){
         Scanner leer;
         int numColumnas=0,numFilas=0,numMinas=0;
@@ -45,7 +53,11 @@ public class Juego {
         this.numMinas = numMinas;
         this.tablero = new Tablero(numFilas, numColumnas);
     }
-    
+    /**
+     * Metodo principal del juego
+     * @author Catalin Ciurcanu
+     * @version 1
+     */
     public void jugar(){
         Scanner leer=new Scanner(System.in);
         boolean perdido = false;
@@ -84,11 +96,20 @@ public class Juego {
             }
         }while(!partidaGanada() && !perdido);
     }
-    
+    /**
+     * Metodo que muestra el tablero del juego
+     * @author Catalin Ciurcanu
+     * @version 1
+     */
     private void mostrarTablero(){
         tablero.imprimirPrueba();
     }
-    
+    /**
+     * Funcion que muestra el menu de opciones del juego
+     * @author Catalin Ciurcanu
+     * @version 1
+     * @return 
+     */
     private int elegirOperacion(){
         int opc=0;
         Scanner leer=new Scanner(System.in);
@@ -99,7 +120,14 @@ public class Juego {
         opc = leer.nextInt();
         return opc;
     }
-    
+    /**
+     * Funcion que comprueba si las coordenadas son correctas
+     * @author Catalin Ciurcanu
+     * @version 1
+     * @param fila
+     * @param columna
+     * @return 
+     */
     private boolean coordenadasCorrectas(int fila, int columna){
         Scanner leer = new Scanner(System.in);
         boolean filas=false, columnas = false, estado=false;
@@ -130,11 +158,20 @@ public class Juego {
         }
         return estado;
     }
-    
+    /**
+     * Método que devuelve el mensaje al pisar una mina
+     */
     private void acabarJuegoMina(){
         System.out.println("Juego finalizado, has pisado una mina");
     }
-    
+    /**
+     * Función que comprueba que tipo es la casilla que intentamos descubrir
+     * @author Catalin Ciurcanu
+     * @version 1
+     * @param fila
+     * @param columna
+     * @return 
+     */
     private boolean descubrirCasilla(int fila, int columna){
         if(tablero.getCasilla(fila, columna).isMina()){
             return false;
@@ -154,11 +191,23 @@ public class Juego {
         }
         return true;
     }
-    
+    /**
+     * Método que deberia trabajar de forma recursiva para descubrir los blancos
+     * obviamente no lo hace
+     * @author Catalin Ciurcanu
+     * @version 1
+     * @param fila
+     * @param columna 
+     */
     private void descubrirBlanco(int fila, int columna){
         
     }
-    
+    /**
+     * Método que devuelve comprobando la posicion de minas y banderas si han sido colocadas todas correctamente.
+     * @author Catalin Ciurcanu
+     * @version 1
+     * @return devuelve el booleano victoria
+     */
     private boolean partidaGanada(){
         boolean victoria=false;
         int acierto=0;

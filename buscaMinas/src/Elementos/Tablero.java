@@ -17,7 +17,7 @@ public class Tablero {
     private int numMinas;
     private Casilla[][] tabla;
     /**
-     * 
+     * Constructor que inicializa ma matriz tabla
      * @param numFilas
      * @param numColumnas 
      */
@@ -33,7 +33,7 @@ public class Tablero {
         }
     }
     /**
-     * 
+     * Metodo que inserta las minas aleatoriamente
      * @param minas 
      */
     public void insertarMinas(int minas){
@@ -48,7 +48,7 @@ public class Tablero {
         }
     }
     /**
-     * 
+     * Metodo que imprime el tablero
      */
     public void imprimirPrueba(){
         System.out.print("\u001B[31m0|");
@@ -109,7 +109,8 @@ public class Tablero {
     }
     
     /**
-     * 
+     * Haciendo uso del metodo getMinas casilla introduce en el tablero
+     * las casillas con numeros (minas que hay alrededor).
      */
     public void calcularTablero(){
         for (int i = 0; i < numFilas; i++) {
