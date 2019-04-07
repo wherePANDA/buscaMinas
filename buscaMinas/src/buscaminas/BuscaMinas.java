@@ -17,10 +17,10 @@ public class BuscaMinas {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Juego juego = null;
-        Tablero tablero = new Tablero(6, 6);
-        tablero.insertarMinas(5);
-        tablero.imprimirPrueba();
+        Juego juego = new Juego();
+        if(juego!=null){
+           juego.jugar();
+        }
+        
     }
-    
 }

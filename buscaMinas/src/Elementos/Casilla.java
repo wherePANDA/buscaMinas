@@ -16,20 +16,38 @@ public class Casilla {
     private boolean visible;
     private int numero;
 
-    public Casilla() {
-    }
     
-    public Casilla(int numero){
+    public Casilla(){
         this.mina = false;
         this.blanco = false;
         this.bandera = false;
         this.visible = false;
-        this.numero = numero;
+        this.numero = 0;
     }
-
+    /**
+     * Muestra el contenido de las casillas;
+     * Si no es visible muestra un punto (. )
+     * Si es bandera devuelve (x )
+     * Si es 
+     * @return 
+     */
     @Override
     public String toString() {
-        return "" + getNumero();
+        if(blanco){
+            return "  ";
+        }
+        if(mina && visible){
+            return "\u001B[31mM \u001B[0m";
+        }
+        if(numero>0 && visible){
+            return Integer.toString(numero)+" ";
+        }
+        if(bandera){
+            return "X ";
+        }
+        else{
+            return ". ";
+        }
     }
 
     /**
