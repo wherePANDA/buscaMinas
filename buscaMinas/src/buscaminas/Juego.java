@@ -48,25 +48,23 @@ public class Juego {
     
     public void jugar(){
         Scanner leer=new Scanner(System.in);
+        boolean perdido = false;
+        tablero.insertarMinas(numMinas);
         do{
-            tablero.insertarMinas(numMinas);
+            tablero.calcularTablero();
             mostrarTablero();
             int opc=elegirOperacion();
+            int fil=0,column= 0;
             switch(opc){
                 case 1: 
-                    int fil,column;
                     System.out.println("Introduce las coordenadas");
                     System.out.print("Fila: ");
                     fil = leer.nextInt();
                     System.out.print("Columna: ");
                     column = leer.nextInt();
                     
-                    tablero.getCasilla(fil, column).setBlanco(true);
-                    tablero.calcularMinasCasilla(fil, column);
-                    tablero.calcularTablero();
-                    tablero.getCasilla(fil, column).setVisible(true);
+                    descubrirCasilla(fil, column);
                     
-
                     break;
                 case 2: 
                     System.out.println("Introduce las coordenadas");
@@ -77,13 +75,17 @@ public class Juego {
                     tablero.getCasilla(fil, column).setBandera(true);
                     break;
                 case 3: 
+                    
                     break;
             }
-        }while(!partidaGanada());
+            if(!descubrirCasilla(fil, column)){
+                acabarJuegoMina();
+                perdido=true;
+            }
+        }while(!partidaGanada() && !perdido);
     }
     
     private void mostrarTablero(){
-        tablero.insertarMinas(numMinas);
         tablero.imprimirPrueba();
     }
     
@@ -120,7 +122,7 @@ public class Juego {
                 if(filas && columnas){
                     estado=true;
                 }
-            }while(filas==false || columnas==false);
+            }while(!estado);
         } catch(java.util.InputMismatchException letraIntroducida){
             System.out.println("--=[Has introducido una letra]=--");
         } catch(Exception ex){
@@ -134,7 +136,22 @@ public class Juego {
     }
     
     private boolean descubrirCasilla(int fila, int columna){
-        tablero.getCasilla(fila, columna);
+        if(tablero.getCasilla(fila, columna).isMina()){
+            return false;
+        }
+        else if(tablero.getCasilla(fila, columna).isBandera()){
+            System.out.println("No puedes descubrir una bandera");
+        }
+        else if(tablero.getCasilla(fila, columna).isVisible()){
+            System.out.println("Ya está visible");
+        }
+        else{
+            tablero.getCasilla(fila, columna).setVisible(true);
+            tablero.getCasilla(fila, columna).setBlanco(true);
+            if (tablero.getCasilla(fila, columna).isBlanco() && !(tablero.getCasilla(fila, columna).getNumero()>0) ) {
+                descubrirBlanco(fila, columna);
+            }
+        }
         return true;
     }
     
@@ -143,7 +160,22 @@ public class Juego {
     }
     
     private boolean partidaGanada(){
-        boolean victoria;
-        return false;
+        boolean victoria=false;
+        int acierto=0;
+        for (int i = 0; i < numFilas; i++) {
+            for (int j = 0; j < numColumnas; j++) {
+                if(tablero.getCasilla(i, j).isMina() && tablero.getCasilla(i, j).isBandera()){
+                    acierto++;
+                }
+            }
+        }
+        if(acierto==numMinas){
+            System.out.println("JUEGO TERMINADO");
+            victoria = true;
+        }else{
+            victoria = false;
+        }
+        
+        return victoria;
     }
 }

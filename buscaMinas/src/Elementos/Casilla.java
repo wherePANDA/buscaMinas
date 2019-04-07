@@ -33,33 +33,21 @@ public class Casilla {
      */
     @Override
     public String toString() {
-        /*String omitirCero="";
-        if(getNumero()==0){
-            omitirCero="-";
-        }else{
-            omitirCero=String.valueOf(getNumero());
-        }*/
-        
-        
-        if (bandera){
+        if(blanco){
+            return "  ";
+        }
+        if(mina && visible){
+            return "\u001B[31mM \u001B[0m";
+        }
+        if(numero>0 && visible){
+            return Integer.toString(numero)+" ";
+        }
+        if(bandera){
             return "X ";
         }
-        
-        if (visible){
-        
-            if (mina){
-                return "\u001B[31mM \u001B[0m";
-            }
-
-            if (numero>0)
-                return Integer.toString(numero)+" ";
-
-            if(blanco){
-                return "  ";
-            }
+        else{
+            return ". ";
         }
-        
-        return ". ";
     }
 
     /**
